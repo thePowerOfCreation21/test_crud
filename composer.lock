@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "981994c87acc3bd6d70345e6a2b1abe3",
+    "content-hash": "ec1bb4ec27b227d76a370c715b680cd7",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -573,26 +573,32 @@
         },
         {
             "name": "genocide/radiocrud",
-            "version": "dev-master",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thePowerOfCreation21/genocide_radiocrud.git",
-                "reference": "94a0e44867a4ee4f3ecd1c4bbe9a59f58ce1fe9c"
+                "reference": "bfe61d915a1a8944c5e5826cdb32123f37066260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thePowerOfCreation21/genocide_radiocrud/zipball/94a0e44867a4ee4f3ecd1c4bbe9a59f58ce1fe9c",
-                "reference": "94a0e44867a4ee4f3ecd1c4bbe9a59f58ce1fe9c",
+                "url": "https://api.github.com/repos/thePowerOfCreation21/genocide_radiocrud/zipball/bfe61d915a1a8944c5e5826cdb32123f37066260",
+                "reference": "bfe61d915a1a8944c5e5826cdb32123f37066260",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "illuminate/database": "^9.37",
-                "illuminate/http": "^9.37",
-                "morilog/jalali": "^3.4"
+                "laravel/framework": "^9.19",
+                "morilog/jalali": "^3.4",
+                "php": "^8.0.2"
             },
-            "default-branch": true,
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Genocide\\Radiocrud\\RadiocrudServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Genocide\\Radiocrud\\": "src/"
@@ -605,12 +611,12 @@
                     "email": "dadekavweb2@gmail.com"
                 }
             ],
-            "description": "don't ask what is purpose of this package, i don't even know what is purpose of me being alive",
+            "description": "fester, simpler way to create CRUD system in laravel",
             "support": {
                 "issues": "https://github.com/thePowerOfCreation21/genocide_radiocrud/issues",
-                "source": "https://github.com/thePowerOfCreation21/genocide_radiocrud/tree/master"
+                "source": "https://github.com/thePowerOfCreation21/genocide_radiocrud/tree/v1.5.0"
             },
-            "time": "2022-11-30T09:00:22+00:00"
+            "time": "2022-12-08T06:20:40+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -7993,9 +7999,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "genocide/radiocrud": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

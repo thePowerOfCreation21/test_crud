@@ -22,7 +22,40 @@ class ProductController extends Controller
     public function getById (string $id)
     {
         return response()->json(
-            (new ProductAction())->getById($id)
+            (new ProductAction())
+                ->setRelations(['category'])
+                ->makeEloquent()
+                ->getById($id)
         );
+    }
+
+    public function store (Request $request)
+    {
+        return response()->json([
+            'message' => 'ok',
+            'data' => (new ProductAction())
+                ->setRequest($request)
+                ->setValidationRule('store')
+                ->storeByRequest()
+        ]);
+    }
+
+    public function deleteById (string $id)
+    {
+        return response()->json([
+            'message' => 'ok',
+            'data' => (new ProductAction())->deleteById($id)
+        ]);
+    }
+
+    public function updateById (string $id, Request $request)
+    {
+        return response()->json([
+            'message' => 'ok',
+            'data' => (new ProductAction())
+                ->setRequest($request)
+                ->setValidationRule('update')
+                ->updateByIdAndRequest($id)
+        ]);
     }
 }
