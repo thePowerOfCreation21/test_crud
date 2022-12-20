@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use App\Http\Resources\ProductResource;
-use App\Models\Product;
 use App\Models\ProductModel;
 use Genocide\Radiocrud\Services\ActionService\ActionService;
 
@@ -16,29 +15,45 @@ class ProductAction extends ActionService
             ->setResource(ProductResource::class)
             ->setValidationRules([
                 'store' => [
-                    'category_id' => ['required', 'integer', 'between:1,' . str_repeat('9', 18)],
-                    'title' => ['required', 'string', 'max:150'],
-                    'description' => ['string', 'max:2500'],
-                    'image' => ['required', 'file', 'mimes:png,jpg,jpeg,svg', 'max:5000']
+                    'laravel' => [
+                        'category_id' => ['required', 'integer', 'between:1,' . str_repeat('9', 18)],
+                        'title' => ['required', 'string', 'max:150'],
+                        'description' => ['string', 'max:2500'],
+                        'image' => ['required', 'file', 'mimes:png,jpg,jpeg,svg', 'max:5000']
+                    ],
+                    'casts' => [
+                        'image' => ['file']
+                    ]
                 ],
                 'update' => [
                     'category_id' => ['integer', 'between:1,' . str_repeat('9', 18)],
                     'title' => ['string', 'max:150'],
                     'description' => ['nullable', 'string', 'max:2500'],
-                    'image' => ['file', 'mimes:png,jpg,jpeg,svg', 'max:5000'],
+                    'image' => ['string', 'max:150'],
                     'date' => ['date_format:Y-m-d']
                 ],
                 'getQuery' => [
-                    'category_id' => ['string', 'max:20']
+                    'category_id' => ['string', 'max:20'],
+                    'from_date' => ['date_format:Y-m-d'],
+                    'to_date' => ['date_format:Y-m-d'],
                 ]
             ])
             ->setCasts([
-                'image' => ['file']
+                'from_date' => ['jalali_to_gregorian:Y-m-d'],
+                'to_date' => ['jalali_to_gregorian:Y-m-d'],
             ])
             ->setQueryToEloquentClosures([
                 'category_id' => function (&$eloquent, $query)
                 {
                     $eloquent = $eloquent->where('category_id', $query['category_id']);
+                },
+                'from_date' => function (&$eloquent, $query)
+                {
+                    $eloquent = $eloquent->whereDate('created_at', '>=', $query['from_date']);
+                },
+                'to_date' => function (&$eloquent, $query)
+                {
+                    $eloquent = $eloquent->whereDate('created_at', '<=', $query['to_date']);
                 }
             ]);
 
